@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Byron Smith - projects</title>
+  <meta name="description" content="Everything Byron Smith runs, with a 20-second video for each and its live state.">
+  <link rel="canonical" href="https://byronxlg.com/">
+  <meta name="theme-color" content="#0f5c4e">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230f5c4e'/%3E%3C/svg%3E">
+  <style>
+    :root { --bg: #faf8f3; --fg: #1d1d1b; --muted: #6b6a66; --line: #e4e0d6; --accent: #0f5c4e; --up: #1f7a3f; --down: #b3261e; --card: #fff; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #151614; --fg: #ebe8e0; --muted: #9a978f; --line: #2b2c29; --accent: #6fc7b4; --up: #6fcf8a; --down: #f0776f; --card: #1d1e1b; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--fg); }
+    a { color: var(--accent); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    header { padding: 48px 0 24px; }
+    header h1 { margin: 0 0 6px; font-size: 2rem; letter-spacing: -0.01em; }
+    header p { margin: 0; color: var(--muted); }
+    .board { display: flex; gap: 16px; flex-wrap: wrap; align-items: baseline; margin: 16px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9rem; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding: 8px 0 48px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+    .card video, .card .noposter { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0c1412; object-fit: cover; }
+    .card .noposter { display: grid; place-items: center; color: #8fb7ad; font-family: ui-monospace, Menlo, monospace; font-size: 0.85rem; }
+    .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .title { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .title h2 { margin: 0; font-size: 1.1rem; }
+    .state { font-family: ui-monospace, Menlo, monospace; font-size: 0.8rem; white-space: nowrap; }
+    .state.up { color: var(--up); } .state.down { color: var(--down); } .state.none { color: var(--muted); }
+    .blurb { margin: 0; color: var(--fg); }
+    .meta { margin: auto 0 0; padding-top: 6px; font-size: 0.85rem; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 40px; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Byron Smith</h1>
+      <p>AI engineer, Auckland. Everything I run, in 20 seconds each.</p>
+      <div class="board">
+        <span>8 up</span><span>nothing down</span><span>as of 2026-09-21 21:30:38 UTC</span>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="grid">
+      <article class="card" id="management">
+        <div class="noposter">no video yet</div>
+        <div class="body">
+          <div class="title"><h2>management</h2><span class="state up">up since 2026-09-09</span></div>
+          <p class="blurb">Fleet control. Registry, standard, runbook templates and the operator that keeps every project up.</p>
+          <div class="meta">tier 1</div>
+        </div>
+      </article>
+      <article class="card" id="pdw">
+        <div class="noposter">no video yet</div>
+        <div class="body">
+          <div class="title"><h2>pdw</h2><span class="state up">up since 2026-09-21</span></div>
+          <p class="blurb">Personal data warehouse. Prefect flows land data in S3, dbt shapes it in Postgres, Grafana shows it.</p>
+          <div class="meta"><a href="https://dashboard.byronxlg.com/" rel="noopener">site</a> tier 1</div>
+        </div>
+      </article>
+      <article class="card" id="shared-data-feeds">
+        <div class="noposter">no video yet</div>
+        <div class="body">
+          <div class="title"><h2>shared-data-feeds</h2><span class="state up">up since 2026-09-15</span></div>
+          <p class="blurb">Always-on collectors for weather and Polymarket market data, streamed into Redis on a Mac mini.</p>
+          <div class="meta">tier 1</div>
+        </div>
+      </article>
+      <article class="card" id="x402-services">
+        <div class="noposter">no video yet</div>
+        <div class="body">
+          <div class="title"><h2>x402-services</h2><span class="state up">up since 2026-09-17</span></div>
+          <p class="blurb">Pay-per-call market data for AI agents. HTTP 402, USDC on Base, no accounts.</p>
+          <div class="meta"><a href="https://x402.botsmith.dev/catalog" rel="noopener">site</a> tier 2</div>
+        </div>
+      </article>
+      <article class="card" id="botsmith">
+        <video src="https://botsmith.dev/assets/brag.mp4" poster="https://botsmith.dev/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+        <div class="body">
+          <div class="title"><h2>botsmith</h2><span class="state up">up since 2026-09-13</span></div>
+          <p class="blurb">botsmith.dev, the studio site and index of what botsmith runs.</p>
+          <div class="meta"><a href="https://botsmith.dev/" rel="noopener">site</a> <a href="https://github.com/byronxlg/botsmith" rel="noopener">repo</a> tier 3</div>
+        </div>
+      </article>
+      <article class="card" id="byronxlg">
+        <div class="noposter">no video yet</div>
+        <div class="body">
+          <div class="title"><h2>byronxlg</h2><span class="state up">up since 2026-08-31</span></div>
+          <p class="blurb">The GitHub profile README, project list refreshed by a workflow.</p>
+          <div class="meta"><a href="https://github.com/byronxlg" rel="noopener">site</a> <a href="https://github.com/byronxlg/byronxlg" rel="noopener">repo</a> tier 3</div>
+        </div>
+      </article>
+      <article class="card" id="polymarket-tui">
+        <video src="https://polymarket-tui.botsmith.dev/assets/brag.mp4" poster="https://polymarket-tui.botsmith.dev/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+        <div class="body">
+          <div class="title"><h2>polymarket-tui</h2><span class="state up">up since 2026-08-31</span></div>
+          <p class="blurb">A fast, keyboard-driven terminal client for Polymarket. Open source, on PyPI and Homebrew.</p>
+          <div class="meta"><a href="https://polymarket-tui.botsmith.dev/" rel="noopener">site</a> <a href="https://github.com/byronxlg/polymarket-tui" rel="noopener">repo</a> tier 3</div>
+        </div>
+      </article>
+      <article class="card" id="skillfold">
+        <video src="https://byronxlg.github.io/skillfold/assets/brag.mp4" poster="https://byronxlg.github.io/skillfold/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+        <div class="body">
+          <div class="title"><h2>skillfold</h2><span class="state up">up since 2026-08-31</span></div>
+          <p class="blurb">A declarative skill manager for Claude Code and Codex. Open source, on npm.</p>
+          <div class="meta"><a href="https://byronxlg.github.io/skillfold/" rel="noopener">site</a> <a href="https://github.com/byronxlg/skillfold" rel="noopener">repo</a> tier 3</div>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      Generated from the fleet registry by the operator on duty. <a href="https://botsmith.dev/">botsmith</a> - <a href="https://blog.byronxlg.com/">blog</a> - <a href="https://github.com/byronxlg">GitHub</a>
+    </div>
+  </footer>
+</body>
+</html>
