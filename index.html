@@ -3,141 +3,230 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Byron Smith - projects</title>
-  <meta name="description" content="Everything Byron Smith runs, with a 20-second video for each and its live state.">
+  <title>Byron Smith - everything I run</title>
+  <meta name="description" content="Everything Byron Smith runs, in Auckland and in the cloud: a twenty-second video of each project and the state it is in right now.">
   <link rel="canonical" href="https://byronxlg.com/">
-  <meta name="theme-color" content="#0f5c4e">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230f5c4e'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#0b1b22">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Byron Smith - everything I run">
+  <meta property="og:description" content="A twenty-second video of every project I run, and the state it is in right now.">
+  <meta property="og:url" content="https://byronxlg.com/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1b22'/%3E%3Crect x='7' y='14' width='18' height='4' rx='2' fill='%237fd6b0'/%3E%3C/svg%3E">
+  <!-- Two families only: Archivo (variable width, the signage voice) and IBM Plex Mono, which is
+       the fleet's own voice - the board below is the same shape the operator sends to Telegram.
+       If Google Fonts is unreachable the fallback stacks keep the layout intact. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <style>
-    :root { --bg: #faf8f3; --fg: #1d1d1b; --muted: #6b6a66; --line: #e4e0d6; --accent: #0f5c4e; --up: #1f7a3f; --down: #b3261e; --card: #fff; }
-    @media (prefers-color-scheme: dark) { :root { --bg: #151614; --fg: #ebe8e0; --muted: #9a978f; --line: #2b2c29; --accent: #6fc7b4; --up: #6fcf8a; --down: #f0776f; --card: #1d1e1b; } }
+    :root {
+      color-scheme: dark;
+      --field: #0b1b22;      /* deep petrol, the page */
+      --panel: #10262f;      /* a screen on the wall */
+      --edge:  #1c3d49;
+      --text:  #e9eff0;
+      --dim:   #90a9b2;
+      --live:  #7fd6b0;      /* state only, nowhere else */
+      --down:  #ff7a63;
+      --sand:  #f0c987;      /* anything you can click */
+      --sans: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--fg); }
-    a { color: var(--accent); }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-    header { padding: 48px 0 24px; }
-    header h1 { margin: 0 0 6px; font-size: 2rem; letter-spacing: -0.01em; }
-    header p { margin: 0; color: var(--muted); }
-    .board { display: flex; gap: 16px; flex-wrap: wrap; align-items: baseline; margin: 16px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9rem; color: var(--muted); }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding: 8px 0 48px; }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
-    .card video, .card .noposter { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0c1412; object-fit: cover; }
-    .card .noposter { display: grid; place-items: center; color: #8fb7ad; font-family: ui-monospace, Menlo, monospace; font-size: 0.85rem; }
-    .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-    .title { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-    .title h2 { margin: 0; font-size: 1.1rem; }
-    .state { font-family: ui-monospace, Menlo, monospace; font-size: 0.8rem; white-space: nowrap; }
-    .state.up { color: var(--up); } .state.down { color: var(--down); } .state.none { color: var(--muted); }
-    .blurb { margin: 0; color: var(--fg); }
-    .meta { margin: auto 0 0; padding-top: 6px; font-size: 0.85rem; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
-    footer { border-top: 1px solid var(--line); padding: 20px 0 40px; color: var(--muted); font-size: 0.85rem; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--field); color: var(--text);
+      font: 400 17px/1.6 var(--sans);
+    }
+    a { color: var(--sand); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+    a:hover { color: #fff; }
+    :focus-visible { outline: 2px solid var(--sand); outline-offset: 3px; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---- nameplate and hero ---- */
+    .plate {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+      padding: 22px 0 0; font-family: var(--mono); font-size: 0.8rem; color: var(--dim);
+    }
+    .plate b { color: var(--text); font-weight: 500; letter-spacing: 0.02em; }
+    header h1 {
+      margin: 34px 0 0; max-width: 16ch;
+      font-size: clamp(2.6rem, 7.2vw, 4.6rem); font-weight: 600;
+      font-stretch: 118%; line-height: 0.98; letter-spacing: -0.015em;
+    }
+    header .lede { margin: 20px 0 0; max-width: 52ch; color: var(--dim); font-size: 1.05rem; }
+    /* Wide enough for both: the sentence on the left, the live board on the right, so the hero
+       says who is speaking and what the fleet is doing in one look. */
+    .hero { display: grid; gap: 30px; align-items: start; padding-bottom: 6px; }
+    @media (min-width: 940px) {
+      .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 46px; }
+      header .lede { margin-top: 24px; }
+    }
+
+    /* The board: the same lines the operator sends to Byron's phone, verbatim in shape. */
+    .board {
+      margin: 30px 0 4px; padding: 18px 20px; max-width: 62ch;
+      border: 1px solid var(--edge); border-radius: 4px; background: var(--panel);
+      font-family: var(--mono); font-size: 0.82rem; line-height: 1.85; color: var(--dim);
+      white-space: pre-wrap; overflow-wrap: anywhere;
+      padding-left: calc(20px + 6ch); text-indent: -6ch;   /* a wrapped UP line stays in its column */
+    }
+    .board b { color: var(--text); font-weight: 500; }
+    .board .live { color: var(--live); }
+    .board .stopped { color: var(--down); }
+
+    /* ---- sections ---- */
+    main { padding: 18px 0 8px; }
+    section { padding: 44px 0 0; }
+    section h2 { margin: 0; font-size: 1.5rem; font-weight: 600; font-stretch: 112%; letter-spacing: -0.01em; }
+    section .lead { margin: 6px 0 22px; max-width: 62ch; color: var(--dim); font-size: 0.97rem; }
+
+    /* Size carries the tier: the always-on ones get the big screens, the shipped things a wall.
+       auto-fit so a section holding one project is a screen and not a lonely thumbnail, and a
+       max-width so it is still a screen and not a billboard. */
+    .grid { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+    .grid.small { gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+
+    .card { display: flex; flex-direction: column; max-width: 540px; }
+    .grid.small .card { max-width: 380px; }
+    .card video, .card .noscreen {
+      display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+      background: #05121a; border: 1px solid var(--edge); border-radius: 3px;
+    }
+    .card .noscreen {
+      display: grid; place-items: center; color: var(--dim);
+      font-family: var(--mono); font-size: 0.78rem;
+    }
+    .card .name {
+      margin: 14px 0 0; font-size: 1.12rem; font-weight: 600; font-stretch: 110%; letter-spacing: -0.005em;
+    }
+    .grid.small .card .name { font-size: 1rem; }
+    .card .blurb { margin: 5px 0 0; color: var(--dim); font-size: 0.95rem; max-width: 46ch; }
+    .card .meta {
+      margin: 11px 0 0; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+      font-family: var(--mono); font-size: 0.78rem;
+    }
+    .state { color: var(--dim); white-space: nowrap; }
+    .state.up::before, .state.down::before, .state.none::before {
+      content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      margin-right: 7px; vertical-align: 1px; background: currentColor;
+    }
+    .state.up { color: var(--live); } .state.down { color: var(--down); }
+
+    footer {
+      margin-top: 64px; border-top: 1px solid var(--edge); padding: 22px 0 56px;
+      color: var(--dim); font-family: var(--mono); font-size: 0.78rem;
+    }
+    footer p { margin: 0; max-width: 70ch; line-height: 1.8; }
+    @media (max-width: 640px) {
+      .plate { flex-direction: column; gap: 2px; }
+      header h1 { margin-top: 26px; font-stretch: 105%; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <h1>Byron Smith</h1>
-      <p>AI engineer, Auckland. Everything I run, in 20 seconds each.</p>
-      <div class="board">
-        <span>11 up</span><span>nothing down</span><span>as of 2026-09-25 01:05:00 UTC</span>
-      </div>
+  <header class="wrap">
+    <div class="plate"><b>Byron Smith</b><span>Auckland, New Zealand</span></div>
+    <h1>Everything I run, still running</h1>
+    <div class="hero">
+      <p class="lede">11 projects, on a Mac mini in Auckland and in the cloud. An agent watches
+        them, puts back what falls over, and rewrites this page every twenty minutes. There is a
+        twenty-second video of each one below.</p>
+      <pre class="board" aria-label="Fleet board">FLEET <b>25 Sep 13:05 NZST</b>
+UP    <span class="live">mgmt pdw sdf x402 blog botsmith doodle tui ssa skillfold solar</span>
+DOWN  <span class="stopped">nothing down</span></pre>
     </div>
   </header>
   <main class="wrap">
-    <div class="grid">
-      <article class="card" id="management">
-        <video src="assets/management/brag.mp4" poster="assets/management/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>management</h2><span class="state up">up since 2026-09-09</span></div>
+    <section>
+      <h2>Always on</h2>
+      <p class="lead">Data or money stops when these stop, so something off this machine reads them every half hour.</p>
+      <div class="grid">
+        <article class="card" id="management">
+          <video src="assets/management/brag.mp4" poster="assets/management/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">management</h3>
           <p class="blurb">Fleet control. Registry, standard, runbook templates and the operator that keeps every project up.</p>
-          <div class="meta">tier 1</div>
-        </div>
-      </article>
-      <article class="card" id="pdw">
-        <video src="assets/pdw/brag.mp4" poster="assets/pdw/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>pdw</h2><span class="state up">up since 2026-09-21</span></div>
+          <p class="meta"><span class="state up">up 15 days</span></p>
+        </article>
+        <article class="card" id="pdw">
+          <video src="assets/pdw/brag.mp4" poster="assets/pdw/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">pdw</h3>
           <p class="blurb">Personal data warehouse. Prefect flows land data in S3, dbt shapes it in Postgres, Grafana shows it.</p>
-          <div class="meta"><a href="https://dashboard.byronxlg.com/" rel="noopener">site</a> tier 1</div>
-        </div>
-      </article>
-      <article class="card" id="shared-data-feeds">
-        <video src="assets/shared-data-feeds/brag.mp4" poster="assets/shared-data-feeds/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>shared-data-feeds</h2><span class="state up">up since 2026-09-15</span></div>
+          <p class="meta"><span class="state up">up 3 days</span><a href="https://dashboard.byronxlg.com/" rel="noopener">site</a></p>
+        </article>
+        <article class="card" id="shared-data-feeds">
+          <video src="assets/shared-data-feeds/brag.mp4" poster="assets/shared-data-feeds/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">shared-data-feeds</h3>
           <p class="blurb">Always-on collectors for weather and Polymarket market data, streamed into Redis on a Mac mini.</p>
-          <div class="meta">tier 1</div>
-        </div>
-      </article>
-      <article class="card" id="x402-services">
-        <video src="assets/x402-services/brag.mp4" poster="assets/x402-services/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>x402-services</h2><span class="state up">up since 2026-09-17</span></div>
+          <p class="meta"><span class="state up">up 9 days</span></p>
+        </article>
+      </div>
+    </section>
+    <section>
+      <h2>Live services</h2>
+      <p class="lead">Anyone can use these. An outage costs a little and loses nothing.</p>
+      <div class="grid">
+        <article class="card" id="x402-services">
+          <video src="assets/x402-services/brag.mp4" poster="assets/x402-services/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">x402-services</h3>
           <p class="blurb">Pay-per-call market data for AI agents. HTTP 402, USDC on Base, no accounts.</p>
-          <div class="meta"><a href="https://x402.botsmith.dev/" rel="noopener">site</a> tier 2</div>
-        </div>
-      </article>
-      <article class="card" id="blog">
-        <video src="https://blog.byronxlg.com/assets/brag.mp4" poster="https://blog.byronxlg.com/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>blog</h2><span class="state up">up since 2026-09-22</span></div>
+          <p class="meta"><span class="state up">up 7 days</span><a href="https://x402.botsmith.dev/" rel="noopener">site</a></p>
+        </article>
+      </div>
+    </section>
+    <section>
+      <h2>Out in the world</h2>
+      <p class="lead">Published things: install them, read them, play with them. Nothing to keep alive.</p>
+      <div class="grid small">
+        <article class="card" id="blog">
+          <video src="https://blog.byronxlg.com/assets/brag.mp4" poster="https://blog.byronxlg.com/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">blog</h3>
           <p class="blurb">Writing, by hand. Engineering notes from running all of this.</p>
-          <div class="meta"><a href="https://blog.byronxlg.com/" rel="noopener">site</a> tier 3</div>
-        </div>
-      </article>
-      <article class="card" id="botsmith">
-        <video src="https://botsmith.dev/assets/brag.mp4" poster="https://botsmith.dev/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>botsmith</h2><span class="state up">up since 2026-09-13</span></div>
+          <p class="meta"><span class="state up">up 3 days</span><a href="https://blog.byronxlg.com/" rel="noopener">site</a></p>
+        </article>
+        <article class="card" id="botsmith">
+          <video src="https://botsmith.dev/assets/brag.mp4" poster="https://botsmith.dev/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">botsmith</h3>
           <p class="blurb">botsmith.dev, the studio site and index of what botsmith runs.</p>
-          <div class="meta"><a href="https://botsmith.dev/" rel="noopener">site</a> <a href="https://github.com/byronxlg/botsmith" rel="noopener">repo</a> tier 3</div>
-        </div>
-      </article>
-      <article class="card" id="doodle-detective">
-        <video src="assets/doodle-detective/brag.mp4" poster="assets/doodle-detective/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>doodle-detective</h2><span class="state up">up since 2026-09-23</span></div>
+          <p class="meta"><span class="state up">up 11 days</span><a href="https://botsmith.dev/" rel="noopener">site</a><a href="https://github.com/byronxlg/botsmith" rel="noopener">repo</a></p>
+        </article>
+        <article class="card" id="doodle-detective">
+          <video src="assets/doodle-detective/brag.mp4" poster="assets/doodle-detective/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">doodle-detective</h3>
           <p class="blurb">You draw, ChatGPT guesses. A 30-second drawing game played inside ChatGPT over MCP.</p>
-          <div class="meta"><a href="https://doodle.byronxlg.com/" rel="noopener">site</a> tier 3</div>
-        </div>
-      </article>
-      <article class="card" id="polymarket-tui">
-        <video src="https://polymarket-tui.botsmith.dev/assets/brag.mp4" poster="https://polymarket-tui.botsmith.dev/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>polymarket-tui</h2><span class="state up">up since 2026-08-31</span></div>
+          <p class="meta"><span class="state up">up 1 day</span><a href="https://doodle.byronxlg.com/" rel="noopener">site</a></p>
+        </article>
+        <article class="card" id="polymarket-tui">
+          <video src="https://polymarket-tui.botsmith.dev/assets/brag.mp4" poster="https://polymarket-tui.botsmith.dev/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">polymarket-tui</h3>
           <p class="blurb">A fast, keyboard-driven terminal client for Polymarket. Open source, on PyPI and Homebrew.</p>
-          <div class="meta"><a href="https://polymarket-tui.botsmith.dev/" rel="noopener">site</a> <a href="https://github.com/byronxlg/polymarket-tui" rel="noopener">repo</a> tier 3</div>
-        </div>
-      </article>
-      <article class="card" id="semantic-similarity-app">
-        <video src="assets/semantic-similarity-app/brag.mp4" poster="assets/semantic-similarity-app/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>semantic-similarity-app</h2><span class="state up">up since 2026-09-22</span></div>
+          <p class="meta"><span class="state up">up 24 days</span><a href="https://polymarket-tui.botsmith.dev/" rel="noopener">site</a><a href="https://github.com/byronxlg/polymarket-tui" rel="noopener">repo</a></p>
+        </article>
+        <article class="card" id="semantic-similarity-app">
+          <video src="assets/semantic-similarity-app/brag.mp4" poster="assets/semantic-similarity-app/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">semantic-similarity-app</h3>
           <p class="blurb">Compare two texts by meaning, not word overlap. Embeddings and cosine similarity, saved history when signed in.</p>
-          <div class="meta"><a href="https://semanticsimilarity.byronxlg.com/" rel="noopener">site</a> tier 3</div>
-        </div>
-      </article>
-      <article class="card" id="skillfold">
-        <video src="https://byronxlg.com/skillfold/assets/brag.mp4" poster="https://byronxlg.com/skillfold/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>skillfold</h2><span class="state up">up since 2026-08-31</span></div>
+          <p class="meta"><span class="state up">up 3 days</span><a href="https://semanticsimilarity.byronxlg.com/" rel="noopener">site</a></p>
+        </article>
+        <article class="card" id="skillfold">
+          <video src="https://byronxlg.com/skillfold/assets/brag.mp4" poster="https://byronxlg.com/skillfold/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">skillfold</h3>
           <p class="blurb">A declarative skill manager for Claude Code and Codex. Open source, on npm.</p>
-          <div class="meta"><a href="https://byronxlg.com/skillfold/" rel="noopener">site</a> <a href="https://github.com/byronxlg/skillfold" rel="noopener">repo</a> tier 3</div>
-        </div>
-      </article>
-      <article class="card" id="solar-system">
-        <video src="https://byronxlg.com/solar-system/assets/brag.mp4" poster="https://byronxlg.com/solar-system/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
-        <div class="body">
-          <div class="title"><h2>solar-system</h2><span class="state up">up since 2026-09-22</span></div>
+          <p class="meta"><span class="state up">up 24 days</span><a href="https://byronxlg.com/skillfold/" rel="noopener">site</a><a href="https://github.com/byronxlg/skillfold" rel="noopener">repo</a></p>
+        </article>
+        <article class="card" id="solar-system">
+          <video src="https://byronxlg.com/solar-system/assets/brag.mp4" poster="https://byronxlg.com/solar-system/assets/brag.jpg" width="1920" height="1080" muted loop playsinline controls preload="none"></video>
+          <h3 class="name">solar-system</h3>
           <p class="blurb">A solar system you fly through with your hands, and a gong you bang with them. Hand tracking in the browser, no server.</p>
-          <div class="meta"><a href="https://byronxlg.com/solar-system/" rel="noopener">site</a> <a href="https://github.com/byronxlg/solar-system" rel="noopener">repo</a> tier 3</div>
-        </div>
-      </article>
-    </div>
+          <p class="meta"><span class="state up">up 3 days</span><a href="https://byronxlg.com/solar-system/" rel="noopener">site</a><a href="https://github.com/byronxlg/solar-system" rel="noopener">repo</a></p>
+        </article>
+      </div>
+    </section>
   </main>
   <footer>
     <div class="wrap">
-      Generated from the fleet registry by the operator on duty. <a href="https://botsmith.dev/">botsmith</a> - <a href="https://blog.byronxlg.com/">blog</a> - <a href="https://github.com/byronxlg">GitHub</a>
+      <p>Rendered from the fleet registry at 2026-09-25 01:05:00 UTC by the operator on duty.
+      <a href="https://botsmith.dev/">botsmith</a>  <a href="https://blog.byronxlg.com/">blog</a>  <a href="https://github.com/byronxlg">GitHub</a></p>
     </div>
   </footer>
 </body>
