@@ -56,6 +56,11 @@ The probe is red, so the page is not what was committed here. In order:
 2. `gh run list --repo byronxlg/byronxlg.github.io --limit 5` - a failed or missing
    `pages-build-deployment` is the deploy. Re-run it (`gh run rerun <id>`) or push an empty
    change by running `bin/fleet page --push` again.
+   Runs that are queued for many minutes, or `cancelled` one after another, mean GitHub
+   Actions is slow (https://www.githubstatus.com/): a push cancels the deploy in flight for
+   the commit before it, and on 2026-10-05 the tick's own 20-minute pushes kept doing that
+   until the page was red. `bin/fleet page --push` now waits while a deploy is queued or
+   running, up to 60 min, so the fix is to wait; do not push by hand to hurry it.
 3. Content differs but both are healthy: the push failed while the commit landed locally.
    `git -C ~/repos/byronxlg.github.io status` and `git log --oneline -3 origin/main..HEAD`;
    push it.
@@ -80,7 +85,7 @@ objectives table and the recovery steps above are the whole of it.
 
 | What | Where it runs | When | Notes |
 | --- | --- | --- | --- |
-| Render and push (`bin/fleet page --push`) | operator tick, this Mac | every 20 min | the `as_of` stamp changes every render, so this pushes and Pages rebuilds every tick |
+| Render and push (`bin/fleet page --push`) | operator tick, this Mac | every 20 min | the `as_of` stamp changes every render, so this pushes and Pages rebuilds every tick; the push is skipped while the previous deploy is still in flight |
 
 ## Dashboards and logs
 
