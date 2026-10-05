@@ -28,7 +28,7 @@ published by their own repos, not by this one.
 
 | Indicator | Target | Window | Measured by |
 | --- | --- | --- | --- |
-| The page returns 200 and is the committed `index.html` | 99% of checks | 30 days | `projects-page` probe in `bin/fleet health` |
+| The page returns 200 and is a render committed here, no more than 6 h behind | 99% of checks | 30 days | `projects-page` probe in `bin/fleet health` |
 | A registry or state change is on the live page within one tick | every change | per tick | `pages-build-deployment` run green after the tick's push |
 
 Recovery targets: RTO 14 days (the `restore` SLA in `projects.yaml`). RPO not applicable: the
@@ -38,16 +38,24 @@ page is regenerated from the registry, so nothing here is worth restoring.
 
 | Watcher | Where it runs | Cadence | Checks | Alerts to | Run history |
 | --- | --- | --- | --- | --- | --- |
-| `bin/fleet health` probe | this Mac (operator tick) | 20 min | `https://byronxlg.com/` is 200 and byte-identical to `HEAD:index.html` | the fleet board (DOWN page) | `state/status.json` in management |
+| `bin/fleet health` probe | this Mac (operator tick) | 20 min | `https://byronxlg.com/` is 200 and byte-identical to `HEAD:index.html`, or to an earlier render that has been behind for less than 6 h | the fleet board (DOWN page) | `state/status.json` in management |
 | `bin/tick` step 2c | this Mac | 20 min | the render and push itself; a failure is a tick error, which queues a work run | operator | `~/Library/Logs/management-tick.log` |
 | `pages-build-deployment` | GitHub Actions | per push | the Pages build | GitHub's workflow failure email | [actions](https://github.com/byronxlg/byronxlg.github.io/actions) |
 
 No off-host monitor, and none is required at tier 3. The probe is a network probe, so one
 failing tick marks the project suspect and only the second one turns it red (G27, G35).
 
+A page that serves an earlier render is up, and the probe says so (`N render(s) behind for
+1h35m (Pages deploy pending)`, green). On 2026-10-05 GitHub Actions was out for hours, the page
+sat five renders behind and the board said `DOWN page` for a page that opened fine (management
+G82). Red now means one of three things, and the reason on the line says which: unreachable
+or not 200; serving bytes that were never committed here; or behind the committed page for
+more than 6 h, by which time the deploy is broken rather than slow.
+
 ## Recovery
 
-The probe is red, so the page is not what was committed here. In order:
+The probe is red: the page is gone, is not a page committed here, or has been behind for more
+than 6 h. In order:
 
 1. `curl -sI https://byronxlg.com/` - not 200 means Pages, DNS or the certificate, not content.
    `gh api repos/byronxlg/byronxlg.github.io/pages` shows `status`, `cname`, `https_enforced`
@@ -60,7 +68,9 @@ The probe is red, so the page is not what was committed here. In order:
    Actions is slow (https://www.githubstatus.com/): a push cancels the deploy in flight for
    the commit before it, and on 2026-10-05 the tick's own 20-minute pushes kept doing that
    until the page was red. `bin/fleet page --push` now waits while a deploy is queued or
-   running, up to 60 min, so the fix is to wait; do not push by hand to hurry it.
+   running, up to 60 min, so the fix is to wait; do not push by hand to hurry it. The probe
+   stays green through this for 6 h; red with "behind the committed page" means it has
+   lasted longer than that and a run needs re-running once Actions is back.
 3. Content differs but both are healthy: the push failed while the commit landed locally.
    `git -C ~/repos/byronxlg.github.io status` and `git log --oneline -3 origin/main..HEAD`;
    push it.

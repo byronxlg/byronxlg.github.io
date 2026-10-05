@@ -30,8 +30,9 @@ curl -s -o /tmp/page.html -w '%{http_code}\n' https://byronxlg.com/
 git -C ~/repos/byronxlg.github.io show HEAD:index.html | cmp -s - /tmp/page.html && echo "live == committed"
 ```
 
-Pass: 200 and `live == committed`. This is the same probe `bin/fleet health` runs every tick
-for the `projects-page` project.
+Pass: 200 and `live == committed`. `bin/fleet health` runs the same comparison every tick for
+the `projects-page` project, and also passes a page that is an earlier render less than 6 h
+behind (a Pages deploy still on its way).
 
 ## Rollback
 
