@@ -18,6 +18,7 @@ tick and is then overwritten, so every change is made in management and publishe
 | --- | --- | --- | --- | --- |
 | a project's blurb, site or video (`projects.yaml` `page:`) | `bin/fleet page --push` | merged in management | the next tick, within 20 min | the card on https://byronxlg.com/ |
 | a project going live or being retired (`status:`) | same | merged in management | the next tick | the card appears or goes |
+| a repo made private or public on GitHub | same, GitHub asked each render | the change on GitHub | the next tick | the card goes (private) or appears once `page.repo_public: true` is written (public); `bin/fleet check` is red until the registry agrees |
 | up/down state (`state/status.json`) | same | the tick's health run | the next tick | the state line on the card |
 | layout or styling (`templates/site/index.html`) | same | merged in management | the next tick | the page |
 | a launch video (`brag/brag.mp4` in a project) | same, read off that checkout's upstream ref | merged in that project | the next tick | the card plays the new video |

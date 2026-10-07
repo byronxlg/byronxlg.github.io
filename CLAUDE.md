@@ -12,7 +12,7 @@ To change the page, change it in management:
 | --- | --- |
 | Layout, styling, the header | `templates/site/index.html` |
 | A project's blurb, site link, video | its `page:` block in `projects.yaml` |
-| Which projects appear | `status: live` in `projects.yaml` (`page.listed: false` opts out) |
+| Which projects appear | `status: live` in `projects.yaml` and a public repo on GitHub, asked every render (`page.listed: false` opts out; a private repo is never listed, D51) |
 | The renderer | `bin/fleet` `cmd_page` |
 
 Operating this repo (who watches it, how a change reaches the live site, how to roll back):
